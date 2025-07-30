@@ -1,0 +1,32 @@
+<!-- templates/admin/fragments/header.html -->
+<div th:fragment="header">
+    <nav style="background-color:rgb(37, 45, 44); padding: 15px 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+
+            <!-- Left: Logo and Links -->
+            <div style="display: flex; align-items: center; gap: 40px;">
+                <!-- Logo -->
+                <a th:href="@{/admin/dashboard}" style="display: flex; align-items: center; text-decoration: none; color: white;">
+                    <img src="https://thumbs.dreamstime.com/z/initial-monogram-letter-n-logo-design-vector-template-luxury-263446583.jpg?ct=jpeg"
+                         alt="Logo" style="height: 45px; margin-right: 10px;">
+                    <span style="font-size: 22px; font-weight: bold;">Admin Panel</span>
+                </a>
+
+                <!-- Nav Links -->
+                <ul style="display: flex; list-style: none; margin: 0; padding: 0; gap: 25px;">
+                    <li><a th:href="@{/admin/categories}" style="color: #FDFEFE; text-decoration: none; font-weight: 500;">Categories</a></li>
+                    <li><a th:href="@{/admin/posts}" style="color: #FDFEFE; text-decoration: none; font-weight: 500;">Posts</a></li>
+                    <li><a th:href="@{/admin/comments}" style="color: #FDFEFE; text-decoration: none; font-weight: 500;">Comments</a></li>
+                </ul>
+            </div>
+
+            <!-- Right: Logout Button -->
+            <form th:action="@{/logout}" method="post">
+                <button type="submit"
+                        style="background-color:rgb(122, 113, 97); color: #fff; border: none; padding: 8px 14px; font-weight: bold; border-radius: 4px; cursor: pointer;">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </nav>
+</div>

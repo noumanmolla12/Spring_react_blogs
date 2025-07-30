@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="admin/layout :: layout">
+<body>
+
+<div th:fragment="content">
+    <div class="container py-4">
+
+        <h2 class="mb-4" th:text="${category.id != null} ? 'Edit Category' : 'Add New Category'"></h2>
+
+        <form th:action="@{/admin/categories/save}" method="post" th:object="${category}" class="border p-4 rounded bg-light">
+            <input type="hidden" th:field="*{id}"/>
+
+            <!-- Parent Category Dropdown -->
+            <div class="mb-3">
+                <label for="parentId" class="form-label">Parent Category</label>
+                <select id="parentId" class="form-select" th:field="*{parentId}">
+                    <option value="">-- None --</option>
+                    <option th:each="c : ${categories}"
+                            th:value="${c.id}"
+                            th:text="${c.name}"
+                            th:selected="${c.id == category.parentId}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input id="name" type="text" class="form-control" th:field="*{name}" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="slug" class="form-label">Slug</label>
+                <input id="slug" type="text" class="form-control" th:field="*{slug}" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" class="form-control" th:field="*{description}" rows="4"></textarea>
+            </div>
+
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="active" th:field="*{active}" />
+                <label class="form-check-label" for="active">Active</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+
+    </div>
+
+    <!-- ✅ Auto-Slug Generator Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const nameInput = document.getElementById("name");
+        const slugInput = document.getElementById("slug");
+
+        nameInput.addEventListener("input", function () {
+            const slug = nameInput.value
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, "");
+            slugInput.value = slug;
+        });
+    });
+</script>
+
+</div>
+
+
+</body>
+</html>

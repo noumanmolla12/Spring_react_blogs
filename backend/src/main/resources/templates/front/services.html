@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="front/layout :: layout">
+<body>
+<div th:fragment="content">
+    <div class="container py-5">
+        <h1 class="mb-4">Our Services</h1>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-code me-2 text-primary"></i> Web Development</h5>
+                        <p class="card-text">Custom web applications using modern technologies like Spring Boot, React, and more.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-mobile-alt me-2 text-success"></i> Mobile Apps</h5>
+                        <p class="card-text">Cross-platform Android/iOS mobile app development with performance and sleek UI.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-search me-2 text-warning"></i> SEO & Marketing</h5>
+                        <p class="card-text">Improve your website's visibility with our expert SEO and digital marketing strategies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

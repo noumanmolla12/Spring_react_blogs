@@ -1,0 +1,27 @@
+<!-- templates/front/fragments/sidebar.html -->
+<div th:fragment="sidebar">
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-folder-open"></i> Categories
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:each="category : ${categories}">
+                <i class="fas fa-folder text-secondary me-2"></i>
+                <a th:href="@{'/category/' + ${category.id}}" th:text="${category.name}"></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Optional: Future widget section -->
+    <!--
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+            🔥 Popular Posts
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Post A</li>
+            <li class="list-group-item">Post B</li>
+        </ul>
+    </div>
+    -->
+</div>

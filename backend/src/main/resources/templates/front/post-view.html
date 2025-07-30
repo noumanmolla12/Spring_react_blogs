@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}">Post Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"
+          integrity="sha512-8IhzHNd4zBhZXhfDBb+fDX2MyjTxLCPtGPl6SVFe0upgq+dUYzdc8JSn1tUCGURQuHBXJ7JG4aH9D9VqEvK0Kg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+
+<!-- ✅ Shared Header -->
+<div th:replace="front/fragments/header :: header"></div>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- ✅ Main Post Content -->
+        <div class="col-md-9">
+            <h1 th:text="${post.title}">Post Title</h1>
+            <p class="text-muted mb-3">
+                <i class="fas fa-calendar-alt me-1"></i>
+                <span th:text="'Published on: ' + ${#temporals.format(post.createdAt, 'dd MMM yyyy')}"></span>
+            </p>
+
+            <img th:if="${post.imageName != null}"
+                 th:src="@{'/uploads/' + ${post.imageName}}"
+                 class="img-fluid mb-4 rounded"
+                 alt="Post Image" />
+
+            <div th:if="${post.content != null}" th:utext="${post.content}" class="mb-5"></div>
+
+            <!-- ✅ Comments Section -->
+            <h3 class="mb-3"><i class="fas fa-comments me-2"></i>Comments</h3>
+
+            <div th:if="${post.comments.size() > 0}">
+                <div class="mb-4" th:each="comment : ${post.comments}">
+                    <div class="border rounded p-3 mb-3 bg-light">
+                        <h5 class="mb-1" th:text="${comment.title}">Comment Title</h5>
+                        <small class="text-muted" th:text="'By ' + ${comment.fullName} + ' on ' + ${#temporals.format(comment.createdAt, 'dd MMM yyyy')}"></small>
+                        <p class="mt-2 mb-0" th:text="${comment.description}"></p>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${post.comments.size() == 0}" class="alert alert-info">
+                <i class="fas fa-info-circle"></i> No comments yet. Be the first to comment!
+            </div>
+
+            <hr class="my-5">
+
+            <!-- ✅ Comment Submission Form -->
+            <h4 class="mb-3"><i class="fas fa-pen"></i> Leave a Comment</h4>
+            <form th:action="@{'/post/' + ${post.slug} + '/comment'}" method="post">
+                <input type="hidden" name="postId" th:value="${post.id}" />
+
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Comment Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Comment</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Comment</button>
+            </form>
+
+            <a href="/" class="btn btn-outline-secondary mt-4"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+
+        <!-- ✅ Sidebar -->
+        <div class="col-md-3">
+            <div th:replace="front/fragments/sidebar :: sidebar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ Shared Footer -->
+<div th:replace="front/fragments/footer :: footer"></div>
+
+<!-- ✅ JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
